@@ -1,0 +1,13 @@
+name: mvc
+display_name: MVC
+folders:
+  - models
+  - controllers
+  - views
+files:
+  - path: models/{{feature_snake}}_model.dart
+    template: model.dart.template
+  - path: controllers/{{feature_snake}}_controller.dart
+    template: mvc_controller.dart.template
+  - path: views/{{feature_snake}}_view.dart
+    template: screen.dart.template

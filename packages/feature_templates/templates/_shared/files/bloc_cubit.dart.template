@@ -1,0 +1,5 @@
+import 'package:bloc/bloc.dart';
+
+class {{feature_pascal}}Cubit extends Cubit<int> {
+  {{feature_pascal}}Cubit() : super(0);
+}

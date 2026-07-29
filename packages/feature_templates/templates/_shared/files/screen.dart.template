@@ -1,0 +1,14 @@
+import 'package:flutter/material.dart';
+
+/// Primary screen for the {{feature_pascal}} feature.
+class {{feature_pascal}}Screen extends StatelessWidget {
+  const {{feature_pascal}}Screen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('{{feature_pascal}}')),
+      body: const Center(child: Text('{{feature_pascal}} feature')),
+    );
+  }
+}

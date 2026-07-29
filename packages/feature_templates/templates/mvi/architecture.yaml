@@ -1,0 +1,16 @@
+name: mvi
+display_name: MVI
+folders:
+  - intent
+  - state
+  - reducer
+  - view
+files:
+  - path: intent/{{feature_snake}}_intent.dart
+    template: mvi_intent.dart.template
+  - path: state/{{feature_snake}}_state.dart
+    template: mvi_state.dart.template
+  - path: reducer/{{feature_snake}}_reducer.dart
+    template: mvi_reducer.dart.template
+  - path: view/{{feature_snake}}_page.dart
+    template: screen.dart.template

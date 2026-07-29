@@ -1,0 +1,16 @@
+name: clean
+display_name: Clean Architecture
+folders:
+  - data
+  - domain
+  - presentation/screens
+  - presentation/widgets
+files:
+  - path: data/{{feature_snake}}_repository.dart
+    template: repository.dart.template
+  - path: domain/{{feature_snake}}_entity.dart
+    template: entity.dart.template
+  - path: presentation/screens/{{feature_snake}}_screen.dart
+    template: screen.dart.template
+  - path: presentation/widgets/{{feature_snake}}_section.dart
+    template: widget.dart.template

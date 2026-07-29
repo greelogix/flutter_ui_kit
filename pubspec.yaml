@@ -1,0 +1,15 @@
+name: flutter_feature_kit_workspace
+description: Monorepo for Flutter Feature Kit — universal Flutter feature development toolkit.
+publish_to: none
+
+environment:
+  sdk: ^3.12.0
+
+workspace:
+  - packages/feature_core
+  - packages/feature_templates
+  - packages/feature_cli
+  - packages/feature_analyzer
+
+dev_dependencies:
+  very_good_analysis: ^10.0.0

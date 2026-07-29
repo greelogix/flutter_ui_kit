@@ -1,0 +1,6 @@
+/// Domain entity for {{feature_pascal}}.
+class {{feature_pascal}}Entity {
+  const {{feature_pascal}}Entity({required this.id});
+
+  final String id;
+}

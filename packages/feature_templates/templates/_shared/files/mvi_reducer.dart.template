@@ -1,0 +1,10 @@
+import '../state/{{feature_snake}}_state.dart';
+
+class {{feature_pascal}}Reducer {
+  {{feature_pascal}}State reduce(
+    {{feature_pascal}}State state,
+    Object intent,
+  ) {
+    return state;
+  }
+}

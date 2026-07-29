@@ -1,0 +1,10 @@
+import 'package:flutter/material.dart';
+
+class {{feature_pascal}}Section extends StatelessWidget {
+  const {{feature_pascal}}Section({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Card(child: Text('{{feature_pascal}} section'));
+  }
+}

@@ -1,0 +1,9 @@
+class {{feature_pascal}}State {
+  const {{feature_pascal}}State({this.isLoading = false});
+
+  final bool isLoading;
+
+  {{feature_pascal}}State copyWith({bool? isLoading}) {
+    return {{feature_pascal}}State(isLoading: isLoading ?? this.isLoading);
+  }
+}

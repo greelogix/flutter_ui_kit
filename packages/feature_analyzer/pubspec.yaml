@@ -1,0 +1,17 @@
+name: feature_analyzer
+description: Feature structure analyzer for Flutter Feature Kit (Phase 4).
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.12.0
+resolution: workspace
+
+dependencies:
+  feature_core:
+    path: ../feature_core
+  path: ^1.9.1
+
+dev_dependencies:
+  test: ^1.26.2
+  very_good_analysis: ^10.0.0
