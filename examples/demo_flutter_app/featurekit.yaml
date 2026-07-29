@@ -1,0 +1,16 @@
+# Flutter Feature Kit configuration
+# https://github.com/greelogix/flutter_feature_kit
+
+project:
+  architecture: feature_first
+  state_management: none
+  navigation: manual
+  dependency_injection: none
+
+paths:
+  features: lib/features
+
+generation:
+  tests: true
+  exports: true
+  documentation: true

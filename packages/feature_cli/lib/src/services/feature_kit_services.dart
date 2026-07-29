@@ -5,11 +5,9 @@ import 'package:feature_templates/feature_templates.dart';
 
 /// Wires core packages for CLI commands.
 class FeatureKitServices {
-  FeatureKitServices({
-    String? projectRoot,
-    TemplatePaths? templatePaths,
-  })  : projectRoot = projectRoot ?? Directory.current.path,
-        templatePaths = templatePaths ?? TemplatePaths() {
+  FeatureKitServices({String? projectRoot, TemplatePaths? templatePaths})
+    : projectRoot = projectRoot ?? Directory.current.path,
+      templatePaths = templatePaths ?? TemplatePaths() {
     registry = TemplateRegistry(
       builtinTemplatesRoot: this.templatePaths.builtinTemplatesRoot,
     );

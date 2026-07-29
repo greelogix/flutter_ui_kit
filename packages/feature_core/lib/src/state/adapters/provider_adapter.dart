@@ -1,8 +1,8 @@
 import '../../template/architecture_template.dart';
 import '../state_management_adapter.dart';
 
-class ProviderAdapter implements StateManagementAdapter {
-  const ProviderAdapter();
+class ProviderAdapter extends StateManagementAdapter {
+  ProviderAdapter();
 
   @override
   String get name => 'provider';
@@ -12,12 +12,11 @@ class ProviderAdapter implements StateManagementAdapter {
 
   @override
   List<TemplateFileEntry> additionalFiles() => const [
-        TemplateFileEntry(
-          relativePath:
-              'presentation/providers/{{feature_snake}}_controller.dart',
-          templateName: 'provider_controller.dart.template',
-        ),
-      ];
+    TemplateFileEntry(
+      relativePath: 'presentation/providers/{{feature_snake}}_controller.dart',
+      templateName: 'provider_controller.dart.template',
+    ),
+  ];
 
   @override
   List<GeneratedTestFile> testTemplates(Map<String, String> variables) {
@@ -25,11 +24,12 @@ class ProviderAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_controller_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('${snake} controller placeholder', () {
+  test('$snake controller placeholder', () {
     expect(true, isTrue);
   });
 }

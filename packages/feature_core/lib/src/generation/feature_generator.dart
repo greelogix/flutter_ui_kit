@@ -7,9 +7,11 @@ import '../errors/feature_kit_exception.dart';
 import '../naming/name_converter.dart';
 import '../state/state_management_adapter.dart';
 import '../state/state_management_registry.dart';
+import '../template/artifact_definition.dart';
 import '../template/architecture_template.dart';
 import '../template/template_engine.dart';
 import '../template/template_registry.dart';
+import 'add_artifact_context.dart';
 import 'dart_formatter.dart';
 import 'generation_context.dart';
 import 'generation_result.dart';
@@ -21,10 +23,10 @@ class FeatureGenerator {
     StateManagementRegistry? stateRegistry,
     TemplateEngine? templateEngine,
     DartSourceFormatter? formatter,
-  })  : _templateRegistry = templateRegistry,
-        _stateRegistry = stateRegistry ?? StateManagementRegistry(),
-        _templateEngine = templateEngine ?? const TemplateEngine(),
-        _formatter = formatter ?? DartSourceFormatter();
+  }) : _templateRegistry = templateRegistry,
+       _stateRegistry = stateRegistry ?? StateManagementRegistry(),
+       _templateEngine = templateEngine ?? const TemplateEngine(),
+       _formatter = formatter ?? DartSourceFormatter();
 
   final TemplateRegistry _templateRegistry;
   final StateManagementRegistry _stateRegistry;
@@ -70,7 +72,10 @@ class FeatureGenerator {
     _createFolders(featureRoot, mergedTemplate, adapter, variables);
 
     for (final entry in mergedTemplate.files) {
-      final relativePath = _templateEngine.render(entry.relativePath, variables);
+      final relativePath = _templateEngine.render(
+        entry.relativePath,
+        variables,
+      );
       final targetFile = File(p.join(featureRoot.path, relativePath));
       if (entry.skipIfExists && targetFile.existsSync()) {
         skipped.add(targetFile.path);
@@ -91,6 +96,7 @@ class FeatureGenerator {
         templateName: entry.templateName,
         content: content,
         variables: variables,
+        kind: null,
       );
       if (targetFile.path.endsWith('.dart')) {
         content = _formatter.format(content);
@@ -128,6 +134,170 @@ class FeatureGenerator {
       skippedPaths: skipped,
       warnings: warnings,
     );
+  }
+
+  /// Adds a screen, model, repository, or use case to an existing feature.
+  GenerationResult addArtifact(AddArtifactContext context) {
+    final featureSnake = NameConverter.toSnakeCase(context.featureName);
+    final artifactSnake = NameConverter.toSnakeCase(context.artifactName);
+
+    if (!NameConverter.isValidFeatureName(context.featureName)) {
+      throw FeatureKitException('Invalid feature name "$featureSnake".');
+    }
+    if (!NameConverter.isValidFeatureName(context.artifactName)) {
+      throw FeatureKitException('Invalid artifact name "$artifactSnake".');
+    }
+
+    final featureRoot = Directory(
+      p.join(context.projectRoot, context.config.featuresPath, featureSnake),
+    );
+    if (!featureRoot.existsSync()) {
+      throw FeatureKitException(
+        'Feature "$featureSnake" not found at ${featureRoot.path}. '
+        'Run `feature create $featureSnake` first.',
+      );
+    }
+
+    final architectureId = _resolveArchitectureId(context.config);
+    final template = _templateRegistry.resolve(
+      architectureId: architectureId,
+      customTemplatePath: context.config.customTemplatePath,
+    );
+    final definition = template.artifactFor(context.kind);
+    if (definition == null) {
+      throw FeatureKitException(
+        'Architecture "${template.id}" does not define ${context.kind.name} artifacts.',
+      );
+    }
+
+    final adapter = _stateRegistry.resolve(context.config.stateManagement);
+    final variables = _templateEngine.artifactVariables(
+      featureName: featureSnake,
+      artifactName: artifactSnake,
+      packageName: context.packageName,
+    );
+
+    final created = <String>[];
+    final skipped = <String>[];
+    final warnings = <String>[];
+
+    final relativePath = _templateEngine.render(
+      definition.relativePath,
+      variables,
+    );
+    final targetFile = File(p.join(featureRoot.path, relativePath));
+    if (targetFile.existsSync()) {
+      throw FeatureKitException('File already exists: ${targetFile.path}');
+    }
+
+    final templatePath = _resolveTemplateFilePath(
+      architectureId: architectureId,
+      customTemplatePath: context.config.customTemplatePath,
+      templateName: definition.templateName,
+    );
+    if (!File(templatePath).existsSync()) {
+      throw FeatureKitException('Template not found: $templatePath');
+    }
+
+    var content = File(templatePath).readAsStringSync();
+    content = _templateEngine.render(content, variables);
+    content = adapter.renderFileContent(
+      templateName: definition.templateName,
+      content: content,
+      variables: variables,
+      kind: context.kind,
+    );
+    targetFile.parent.createSync(recursive: true);
+    if (targetFile.path.endsWith('.dart')) {
+      content = _formatter.format(content);
+    }
+    targetFile.writeAsStringSync(content);
+    created.add(targetFile.path);
+
+    if (context.config.generateTests && definition.testTemplateName != null) {
+      final testPath = _writeArtifactTest(
+        context: context,
+        featureRoot: featureRoot,
+        variables: variables,
+        testTemplateName: definition.testTemplateName!,
+        architectureId: architectureId,
+      );
+      if (testPath != null) {
+        created.add(testPath);
+      }
+    }
+
+    if (context.config.generateExports) {
+      final barrel = refreshFeatureExports(
+        featureRoot: featureRoot,
+        featureSnake: featureSnake,
+        variables: _templateEngine.featureVariables(
+          featureName: featureSnake,
+          packageName: context.packageName,
+        ),
+      );
+      if (barrel != null) {
+        created.add(barrel);
+      }
+    }
+
+    return GenerationResult(
+      createdPaths: created,
+      skippedPaths: skipped,
+      warnings: warnings,
+    );
+  }
+
+  /// Regenerates `{feature}_feature.dart` barrel exports for [featureRoot].
+  String? refreshFeatureExports({
+    required Directory featureRoot,
+    required String featureSnake,
+    required Map<String, String> variables,
+  }) {
+    return _writeBarrelFile(featureRoot, featureSnake, variables);
+  }
+
+  String? _writeArtifactTest({
+    required AddArtifactContext context,
+    required Directory featureRoot,
+    required Map<String, String> variables,
+    required String testTemplateName,
+    required String architectureId,
+  }) {
+    final testDir = Directory(
+      p.join(
+        context.projectRoot,
+        'test',
+        p.relative(featureRoot.path, from: context.projectRoot),
+      ),
+    );
+    testDir.createSync(recursive: true);
+
+    final testFileName =
+        '${variables['artifact_snake']}_'
+        '${context.kind == FeatureArtifactKind.screen ? 'screen' : context.kind.name}'
+        '_test.dart';
+    final testFile = File(p.join(testDir.path, testFileName));
+    if (testFile.existsSync()) {
+      return null;
+    }
+
+    final templatePath = _resolveTemplateFilePath(
+      architectureId: architectureId,
+      customTemplatePath: context.config.customTemplatePath,
+      templateName: testTemplateName,
+    );
+    if (!File(templatePath).existsSync()) {
+      return null;
+    }
+
+    var content = File(templatePath).readAsStringSync();
+    content = _templateEngine.render(content, variables);
+    if (testFile.path.endsWith('.dart')) {
+      content = _formatter.format(content);
+    }
+    testFile.writeAsStringSync(content);
+    return testFile.path;
   }
 
   String _resolveArchitectureId(FeatureKitConfig config) {
@@ -222,13 +392,14 @@ class FeatureGenerator {
     String snake,
     Map<String, String> variables,
   ) {
-    final dartFiles = featureRoot
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.dart'))
-        .where((f) => !p.basename(f.path).endsWith('_test.dart'))
-        .toList()
-      ..sort((a, b) => a.path.compareTo(b.path));
+    final dartFiles =
+        featureRoot
+            .listSync(recursive: true)
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.dart'))
+            .where((f) => !p.basename(f.path).endsWith('_test.dart'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
 
     if (dartFiles.isEmpty) {
       return null;

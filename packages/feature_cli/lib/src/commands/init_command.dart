@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:args/command_runner.dart';
 import 'package:feature_core/feature_core.dart';
 
@@ -28,7 +26,9 @@ class InitCommand extends Command<int> {
   Future<int> run() async {
     final loader = _services.configLoader;
     if (loader.configFile.existsSync() && !argResults!.flag('force')) {
-      Logger.warn('${ConfigLoader.configFileName} already exists. Use --force to overwrite.');
+      Logger.warn(
+        '${ConfigLoader.configFileName} already exists. Use --force to overwrite.',
+      );
       return 0;
     }
 

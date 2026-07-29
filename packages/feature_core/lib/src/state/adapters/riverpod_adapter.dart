@@ -1,8 +1,10 @@
 import '../../template/architecture_template.dart';
+import '../../template/artifact_definition.dart';
 import '../state_management_adapter.dart';
 
-class RiverpodAdapter implements StateManagementAdapter {
-  const RiverpodAdapter();
+/// Riverpod-specific folders, providers, and generation hints.
+class RiverpodAdapter extends StateManagementAdapter {
+  RiverpodAdapter();
 
   @override
   String get name => 'riverpod';
@@ -12,11 +14,25 @@ class RiverpodAdapter implements StateManagementAdapter {
 
   @override
   List<TemplateFileEntry> additionalFiles() => const [
-        TemplateFileEntry(
-          relativePath: 'presentation/providers/{{feature_snake}}_provider.dart',
-          templateName: 'riverpod_provider.dart.template',
-        ),
-      ];
+    TemplateFileEntry(
+      relativePath: 'presentation/providers/{{feature_snake}}_provider.dart',
+      templateName: 'riverpod_provider.dart.template',
+    ),
+  ];
+
+  @override
+  String renderFileContent({
+    required String templateName,
+    required String content,
+    required Map<String, String> variables,
+    FeatureArtifactKind? kind,
+  }) {
+    if (kind == FeatureArtifactKind.screen &&
+        templateName == 'screen.dart.template') {
+      return '$content\n\n// TODO: expose ${variables['artifact_pascal']} via Riverpod.\n';
+    }
+    return content;
+  }
 
   @override
   List<GeneratedTestFile> testTemplates(Map<String, String> variables) {
@@ -24,11 +40,12 @@ class RiverpodAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_provider_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('${snake} provider placeholder', () {
+  test('$snake provider placeholder', () {
     expect(true, isTrue);
   });
 }

@@ -1,3 +1,5 @@
+import 'artifact_definition.dart';
+
 /// Describes folder layout and file templates for an architecture.
 class ArchitectureTemplate {
   const ArchitectureTemplate({
@@ -6,6 +8,7 @@ class ArchitectureTemplate {
     required this.folders,
     required this.files,
     this.extraFolders = const [],
+    this.artifacts = const {},
   });
 
   final String id;
@@ -19,6 +22,13 @@ class ArchitectureTemplate {
 
   /// File entries: relative path pattern → template file name.
   final List<TemplateFileEntry> files;
+
+  /// Per-artifact paths for `feature add` (key: screen, model, repository, usecase).
+  final Map<String, ArtifactDefinition> artifacts;
+
+  ArtifactDefinition? artifactFor(FeatureArtifactKind kind) {
+    return artifacts[kind.name];
+  }
 }
 
 /// A generated file within a feature.

@@ -12,8 +12,7 @@ class AnalyzeCommand extends Command<int> {
   String get name => 'analyze';
 
   @override
-  String get description =>
-      'Inspect features for structure issues (v0.4).';
+  String get description => 'Inspect features for structure issues (v0.4).';
 
   @override
   Future<int> run() async {

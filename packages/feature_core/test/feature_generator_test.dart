@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:feature_core/feature_core.dart';
-import 'package:feature_templates/feature_templates.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -12,12 +11,14 @@ void main() {
 
   setUp(() {
     projectRoot = Directory.systemTemp.createTempSync('ffk_test_').path;
-    Directory(p.join(projectRoot, 'lib', 'features')).createSync(recursive: true);
+    Directory(
+      p.join(projectRoot, 'lib', 'features'),
+    ).createSync(recursive: true);
 
     final templatesRoot = p.normalize(
       p.join(
         Directory.current.path,
-        '..',
+        'packages',
         'feature_templates',
         'templates',
       ),
@@ -57,8 +58,9 @@ void main() {
 
     expect(result.createdCount, greaterThan(3));
     expect(
-      File(p.join(projectRoot, 'lib/features/profile/screens/profile_screen.dart'))
-          .existsSync(),
+      File(
+        p.join(projectRoot, 'lib/features/profile/screens/profile_screen.dart'),
+      ).existsSync(),
       isTrue,
     );
   });

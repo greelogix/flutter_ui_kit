@@ -50,6 +50,17 @@ folders:
 
 Set `project.architecture: custom` in `featurekit.yaml`, then run `feature create payment`.
 
+## Add artifacts (v0.2)
+
+```bash
+feature add screen settings --feature profile
+feature add model user --feature profile
+feature add repository user --feature profile
+feature add usecase load_profile --feature profile
+```
+
+Requires an existing feature folder under `paths.features`.
+
 ## Verify setup
 
 ```bash

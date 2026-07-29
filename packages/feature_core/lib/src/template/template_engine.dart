@@ -10,10 +10,9 @@ class TemplateEngine {
       result = result.replaceAll('{{${entry.key}}}', entry.value);
     }
     if (result.contains(RegExp(r'\{\{[a-zA-Z0-9_]+\}\}'))) {
-      final missing = RegExp(r'\{\{([a-zA-Z0-9_]+)\}\}')
-          .allMatches(result)
-          .map((m) => m.group(1))
-          .toSet();
+      final missing = RegExp(
+        r'\{\{([a-zA-Z0-9_]+)\}\}',
+      ).allMatches(result).map((m) => m.group(1)).toSet();
       throw TemplateRenderException(
         'Unresolved template variables: ${missing.join(', ')}',
       );
@@ -34,7 +33,34 @@ class TemplateEngine {
       'feature_pascal': pascal,
       'feature_camel': camel,
       'Feature': pascal,
+      'artifact': snake,
+      'artifact_snake': snake,
+      'artifact_pascal': pascal,
+      'artifact_camel': camel,
+      'Artifact': pascal,
       'package_name': packageName ?? 'app',
+    };
+  }
+
+  /// Variables for `feature add` templates (includes feature + artifact names).
+  Map<String, String> artifactVariables({
+    required String featureName,
+    required String artifactName,
+    String? packageName,
+  }) {
+    final base = featureVariables(
+      featureName: featureName,
+      packageName: packageName,
+    );
+    final artifactSnake = NameConverter.toSnakeCase(artifactName);
+    final artifactPascal = NameConverter.toPascalCase(artifactSnake);
+    return {
+      ...base,
+      'artifact': artifactSnake,
+      'artifact_snake': artifactSnake,
+      'artifact_pascal': artifactPascal,
+      'artifact_camel': NameConverter.toCamelCase(artifactSnake),
+      'Artifact': artifactPascal,
     };
   }
 }

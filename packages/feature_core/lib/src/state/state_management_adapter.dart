@@ -1,4 +1,5 @@
 import '../template/architecture_template.dart';
+import '../template/artifact_definition.dart';
 
 /// Pluggable state-management code generation (Phase 2+).
 abstract class StateManagementAdapter {
@@ -25,6 +26,7 @@ abstract class StateManagementAdapter {
     required String templateName,
     required String content,
     required Map<String, String> variables,
+    FeatureArtifactKind? kind,
   }) {
     return content;
   }
@@ -33,10 +35,7 @@ abstract class StateManagementAdapter {
 }
 
 class GeneratedTestFile {
-  const GeneratedTestFile({
-    required this.fileName,
-    required this.content,
-  });
+  const GeneratedTestFile({required this.fileName, required this.content});
 
   final String fileName;
   final String content;

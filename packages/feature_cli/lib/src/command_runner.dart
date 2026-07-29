@@ -7,16 +7,16 @@ import 'commands/doctor_command.dart';
 import 'commands/docs_command.dart';
 import 'commands/generate_command.dart';
 import 'commands/init_command.dart';
-import '../services/feature_kit_services.dart';
+import 'services/feature_kit_services.dart';
 import 'console/logger.dart';
 
 class FeatureCommandRunner extends CommandRunner<int> {
   FeatureCommandRunner({FeatureKitServices? services})
-      : _services = services ?? FeatureKitServices(),
-        super(
-          'feature',
-          'Flutter Feature Kit — scaffold features for any architecture.',
-        ) {
+    : _services = services ?? FeatureKitServices(),
+      super(
+        'feature',
+        'Flutter Feature Kit — scaffold features for any architecture.',
+      ) {
     argParser.addFlag(
       'verbose',
       abbr: 'v',

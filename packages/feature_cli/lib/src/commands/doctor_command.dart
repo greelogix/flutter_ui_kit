@@ -42,7 +42,9 @@ class DoctorCommand extends Command<int> {
       }
     } else {
       ok = false;
-      Logger.warn('${ConfigLoader.configFileName} missing — run `feature init`');
+      Logger.warn(
+        '${ConfigLoader.configFileName} missing — run `feature init`',
+      );
     }
 
     final templatesRoot = _services.templatePaths.builtinTemplatesRoot;
@@ -54,9 +56,7 @@ class DoctorCommand extends Command<int> {
     }
 
     final architectures = _services.registry.listBuiltinIds();
-    Logger.step(
-      'Built-in architectures: ${architectures.join(', ')}',
-    );
+    Logger.step('Built-in architectures: ${architectures.join(', ')}');
 
     if (ok) {
       Logger.done();

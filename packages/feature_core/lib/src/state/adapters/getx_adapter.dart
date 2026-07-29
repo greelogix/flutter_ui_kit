@@ -1,8 +1,8 @@
 import '../../template/architecture_template.dart';
 import '../state_management_adapter.dart';
 
-class GetXAdapter implements StateManagementAdapter {
-  const GetXAdapter();
+class GetXAdapter extends StateManagementAdapter {
+  GetXAdapter();
 
   @override
   String get name => 'getx';
@@ -12,12 +12,12 @@ class GetXAdapter implements StateManagementAdapter {
 
   @override
   List<TemplateFileEntry> additionalFiles() => const [
-        TemplateFileEntry(
-          relativePath:
-              'presentation/controllers/{{feature_snake}}_controller.dart',
-          templateName: 'getx_controller.dart.template',
-        ),
-      ];
+    TemplateFileEntry(
+      relativePath:
+          'presentation/controllers/{{feature_snake}}_controller.dart',
+      templateName: 'getx_controller.dart.template',
+    ),
+  ];
 
   @override
   List<GeneratedTestFile> testTemplates(Map<String, String> variables) {
@@ -25,11 +25,12 @@ class GetXAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_controller_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('${snake} GetX controller placeholder', () {
+  test('$snake GetX controller placeholder', () {
     expect(true, isTrue);
   });
 }

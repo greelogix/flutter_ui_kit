@@ -1,9 +1,9 @@
-/// Data access for the {{feature_pascal}} feature.
-abstract class {{feature_pascal}}Repository {
+/// Data access for {{artifact_pascal}}.
+abstract class {{artifact_pascal}}Repository {
   Future<void> initialize();
 }
 
-class {{feature_pascal}}RepositoryImpl implements {{feature_pascal}}Repository {
+class {{artifact_pascal}}RepositoryImpl implements {{artifact_pascal}}Repository {
   @override
   Future<void> initialize() async {}
 }

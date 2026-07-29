@@ -8,7 +8,7 @@ import '../config/feature_kit_config.dart';
 /// Inspects a Flutter/Dart project to suggest [FeatureKitConfig] values.
 class ProjectDetector {
   ProjectDetector({String? projectRoot})
-      : projectRoot = projectRoot ?? Directory.current.path;
+    : projectRoot = projectRoot ?? Directory.current.path;
 
   final String projectRoot;
 
@@ -82,6 +82,9 @@ class ProjectDetector {
     if (deps.contains('redux') || deps.contains('flutter_redux')) {
       return 'redux';
     }
+    if (deps.contains('signals') || deps.contains('value_notifier')) {
+      return 'value_notifier';
+    }
     return 'none';
   }
 
@@ -117,13 +120,38 @@ class ProjectDetector {
       return 'feature_first';
     }
 
-    final hasClean = _hasSubfolderPattern(lib, ['data', 'domain', 'presentation']);
+    final hasClean = _hasSubfolderPattern(lib, [
+      'data',
+      'domain',
+      'presentation',
+    ]);
     if (hasClean) {
       return 'clean';
     }
-    final hasMvvm = _hasSubfolderPattern(lib, ['models', 'views', 'viewmodels']);
+    final hasMvvm = _hasSubfolderPattern(lib, [
+      'models',
+      'views',
+      'viewmodels',
+    ]);
     if (hasMvvm) {
       return 'mvvm';
+    }
+    final hasMvc = _hasSubfolderPattern(lib, [
+      'models',
+      'controllers',
+      'views',
+    ]);
+    if (hasMvc) {
+      return 'mvc';
+    }
+    final hasMvi = _hasSubfolderPattern(lib, [
+      'intent',
+      'state',
+      'reducer',
+      'view',
+    ]);
+    if (hasMvi) {
+      return 'mvi';
     }
     final featuresDir = Directory(p.join(lib.path, 'features'));
     if (featuresDir.existsSync()) {
@@ -147,7 +175,8 @@ class ProjectDetector {
   }
 
   bool _hasSubfolderPattern(Directory root, List<String> folders) {
-    for (final entity in root.listSync(recursive: true).whereType<Directory>()) {
+    for (final entity
+        in root.listSync(recursive: true).whereType<Directory>()) {
       final relative = p.relative(entity.path, from: root.path);
       final parts = p.split(relative);
       if (parts.length >= 3) {

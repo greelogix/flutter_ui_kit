@@ -1,9 +1,9 @@
-import '../template/architecture_template.dart';
-import 'state_management_adapter.dart';
+import '../../template/architecture_template.dart';
+import '../state_management_adapter.dart';
 
 /// No extra state-management artifacts.
-class NoStateAdapter implements StateManagementAdapter {
-  const NoStateAdapter({String name = 'none'}) : _name = name;
+class NoStateAdapter extends StateManagementAdapter {
+  NoStateAdapter({String name = 'none'}) : _name = name;
 
   final String _name;
 
@@ -23,7 +23,8 @@ class NoStateAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_repository_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

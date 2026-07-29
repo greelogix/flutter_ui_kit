@@ -1,8 +1,8 @@
 import '../../template/architecture_template.dart';
 import '../state_management_adapter.dart';
 
-class MobXAdapter implements StateManagementAdapter {
-  const MobXAdapter();
+class MobXAdapter extends StateManagementAdapter {
+  MobXAdapter();
 
   @override
   String get name => 'mobx';
@@ -12,11 +12,11 @@ class MobXAdapter implements StateManagementAdapter {
 
   @override
   List<TemplateFileEntry> additionalFiles() => const [
-        TemplateFileEntry(
-          relativePath: 'presentation/stores/{{feature_snake}}_store.dart',
-          templateName: 'mobx_store.dart.template',
-        ),
-      ];
+    TemplateFileEntry(
+      relativePath: 'presentation/stores/{{feature_snake}}_store.dart',
+      templateName: 'mobx_store.dart.template',
+    ),
+  ];
 
   @override
   List<GeneratedTestFile> testTemplates(Map<String, String> variables) {
@@ -24,11 +24,12 @@ class MobXAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_store_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('${snake} store placeholder', () {
+  test('$snake store placeholder', () {
     expect(true, isTrue);
   });
 }

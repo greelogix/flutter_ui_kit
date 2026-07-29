@@ -37,18 +37,17 @@ class CreateCommand extends Command<int> {
     final architectureLabel = config.architecture == 'custom'
         ? 'Custom template'
         : _services.registry
-            .resolve(
-              architectureId: config.architecture,
-              customTemplatePath: config.customTemplatePath,
-            )
-            .displayName;
+              .resolve(
+                architectureId: config.architecture,
+                customTemplatePath: config.customTemplatePath,
+              )
+              .displayName;
 
     Logger.step('Architecture: $architectureLabel');
     Logger.step('State management: ${config.stateManagement}');
 
     Logger.step('Generating files');
-    final packageName =
-        _services.detector.readPackageName() ?? 'app';
+    final packageName = _services.detector.readPackageName() ?? 'app';
 
     final result = _services.generator.createFeature(
       GenerationContext(

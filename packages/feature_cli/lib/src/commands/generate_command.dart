@@ -4,7 +4,8 @@ import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
 
 class GenerateCommand extends Command<int> {
-  GenerateCommand({required FeatureKitServices services}) : _services = services {
+  GenerateCommand({required FeatureKitServices services})
+    : _services = services {
     addSubcommand(_GenerateExportsCommand(services: services));
   }
 
@@ -25,7 +26,7 @@ class GenerateCommand extends Command<int> {
 
 class _GenerateExportsCommand extends Command<int> {
   _GenerateExportsCommand({required FeatureKitServices services})
-      : _services = services;
+    : _services = services;
 
   final FeatureKitServices _services;
 

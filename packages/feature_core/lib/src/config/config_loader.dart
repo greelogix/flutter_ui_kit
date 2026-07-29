@@ -9,7 +9,7 @@ import 'feature_kit_config.dart';
 /// Loads and saves [FeatureKitConfig] from `featurekit.yaml`.
 class ConfigLoader {
   ConfigLoader({String? projectRoot})
-      : projectRoot = projectRoot ?? Directory.current.path;
+    : projectRoot = projectRoot ?? Directory.current.path;
 
   final String projectRoot;
 
@@ -34,7 +34,9 @@ class ConfigLoader {
       final contents = configFile.readAsStringSync();
       final doc = loadYaml(contents);
       if (doc is! YamlMap) {
-        throw FeatureKitException('Invalid $configFileName: root must be a map.');
+        throw FeatureKitException(
+          'Invalid $configFileName: root must be a map.',
+        );
       }
       return _parse(doc);
     } on FeatureKitException {
@@ -71,7 +73,7 @@ class ConfigLoader {
   void write(FeatureKitConfig config) {
     final buffer = StringBuffer()
       ..writeln('# Flutter Feature Kit configuration')
-      ..writeln('# https://github.com/your-org/flutter_feature_kit')
+      ..writeln('# https://github.com/greelogix/flutter_feature_kit')
       ..writeln()
       ..writeln('project:')
       ..writeln('  architecture: ${config.architecture}')

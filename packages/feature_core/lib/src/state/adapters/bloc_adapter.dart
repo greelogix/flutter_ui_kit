@@ -1,8 +1,9 @@
 import '../../template/architecture_template.dart';
 import '../state_management_adapter.dart';
 
-class BlocAdapter implements StateManagementAdapter {
-  const BlocAdapter();
+/// Bloc/Cubit-specific presentation folders and cubit files.
+class BlocAdapter extends StateManagementAdapter {
+  BlocAdapter();
 
   @override
   String get name => 'bloc';
@@ -12,11 +13,11 @@ class BlocAdapter implements StateManagementAdapter {
 
   @override
   List<TemplateFileEntry> additionalFiles() => const [
-        TemplateFileEntry(
-          relativePath: 'presentation/bloc/{{feature_snake}}_cubit.dart',
-          templateName: 'bloc_cubit.dart.template',
-        ),
-      ];
+    TemplateFileEntry(
+      relativePath: 'presentation/bloc/{{feature_snake}}_cubit.dart',
+      templateName: 'bloc_cubit.dart.template',
+    ),
+  ];
 
   @override
   List<GeneratedTestFile> testTemplates(Map<String, String> variables) {
@@ -24,9 +25,9 @@ class BlocAdapter implements StateManagementAdapter {
     return [
       GeneratedTestFile(
         fileName: '${snake}_cubit_test.dart',
-        content: '''
+        content:
+            '''
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
   group('${snake}Cubit', () {

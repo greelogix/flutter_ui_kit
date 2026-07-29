@@ -29,7 +29,12 @@ class TemplatePaths {
     // Running from monorepo source (tests / development).
     final candidates = [
       p.normalize(
-        p.join(Directory.current.path, 'packages', 'feature_templates', 'templates'),
+        p.join(
+          Directory.current.path,
+          'packages',
+          'feature_templates',
+          'templates',
+        ),
       ),
       p.normalize(
         p.join(
@@ -70,9 +75,7 @@ class TemplatePaths {
       return null;
     }
     final rootUri = contents.substring(quoteStart + 1, quoteEnd);
-    final packageRoot = p.normalize(
-      p.join(p.dirname(configPath), rootUri),
-    );
+    final packageRoot = p.normalize(p.join(p.dirname(configPath), rootUri));
     final templates = p.join(packageRoot, 'templates');
     if (Directory(templates).existsSync()) {
       return templates;
