@@ -1,4 +1,4 @@
-import 'package:feature_analyzer/feature_analyzer.dart';
+import 'package:flutter_feature_kit_analyzer/flutter_feature_kit_analyzer.dart';
 import 'package:test/test.dart';
 
 void main() {

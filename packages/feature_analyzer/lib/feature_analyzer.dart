@@ -1,3 +1,4 @@
+/// Compatibility entry point for the analyzer library.
 library;
 
-export 'src/feature_analyzer.dart';
+export 'flutter_feature_kit_analyzer.dart';
