@@ -13,7 +13,7 @@ Requires Dart 3.12 or later.
 
 ```yaml
 dependencies:
-  flutter_feature_kit_analyzer: ^0.2.1
+  flutter_feature_kit_analyzer: ^0.2.2
 ```
 
 ## Example
@@ -42,13 +42,6 @@ dart pub get
 dart analyze packages/feature_analyzer
 dart test packages/feature_analyzer/test
 ```
-
-## Maintainer
-
-Published by [Greelogix](https://pub.dev/publishers/greelogix.com/packages).
-Maintained by [Bilal Imran (@bilalatgreelogix)](https://github.com/bilalatgreelogix),
-[bilal.imran@greelogix.com](mailto:bilal.imran@greelogix.com).
-Report issues in the [repository issue tracker](https://github.com/greelogix/flutter_ui_kit/issues).
 
 ## License
 

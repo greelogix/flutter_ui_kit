@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Remove the README maintainer section and personal contact details.
+
 ## 0.2.1
 
 - Correct repository, homepage, documentation, and issue links to flutter_ui_kit.
