@@ -13,7 +13,7 @@ Requires Dart 3.12 or later.
 
 ```yaml
 dependencies:
-  flutter_feature_kit_analyzer: ^0.2.2
+  flutter_feature_kit_analyzer: ^0.2.3
 ```
 
 ## Example
@@ -46,3 +46,13 @@ dart test packages/feature_analyzer/test
 ## License
 
 MIT. See LICENSE.
+
+## Maintained By [#](https://pub.dev/packages/flutter_feature_kit_analyzer#maintained-by)
+
+**GreeLogix** — Flutter, Laravel & AI Development Agency
+
+GreeLogix builds Flutter applications, Laravel backends, and AI-powered products,
+and maintains reusable packages that help developers build better software.
+
+🌐 [https://greelogix.com](https://greelogix.com)\
+📩 [hello@greelogix.com](mailto:hello@greelogix.com)
