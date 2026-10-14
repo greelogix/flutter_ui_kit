@@ -12,6 +12,7 @@ import 'console/logger.dart';
 
 /// Runs feature scaffolding commands and returns conventional exit statuses.
 class FeatureCommandRunner extends CommandRunner<int> {
+  /// Creates a runner with optional services for a specific project.
   FeatureCommandRunner({FeatureKitServices? services})
     : _services = services ?? FeatureKitServices(),
       super(
