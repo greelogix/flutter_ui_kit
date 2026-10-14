@@ -1,0 +1,10 @@
+import 'package:flutter/foundation.dart';
+
+class {{feature_pascal}}Notifier extends ChangeNotifier {
+  bool isLoading = false;
+
+  void setLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
+}

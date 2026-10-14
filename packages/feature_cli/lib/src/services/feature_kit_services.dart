@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:feature_core/feature_core.dart';
-import 'package:feature_templates/feature_templates.dart';
+import 'package:flutter_feature_kit_core/feature_core.dart';
+import 'package:flutter_feature_kit_templates/feature_templates.dart';
 
 /// Wires core packages for CLI commands.
 class FeatureKitServices {

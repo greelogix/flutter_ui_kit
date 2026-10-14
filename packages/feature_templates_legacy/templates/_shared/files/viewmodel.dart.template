@@ -1,0 +1,5 @@
+class {{feature_pascal}}ViewModel {
+  {{feature_pascal}}ViewModel();
+
+  bool isLoading = false;
+}

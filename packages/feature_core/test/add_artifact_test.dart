@@ -1,6 +1,7 @@
+import 'package:flutter_feature_kit_templates/flutter_feature_kit_templates.dart';
 import 'dart:io';
 
-import 'package:feature_core/feature_core.dart';
+import 'package:flutter_feature_kit_core/flutter_feature_kit_core.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -14,14 +15,7 @@ void main() {
     features.createSync(recursive: true);
     File(p.join(features.path, '.keep')).writeAsStringSync('');
 
-    final templatesRoot = p.normalize(
-      p.join(
-        Directory.current.path,
-        'packages',
-        'feature_templates',
-        'templates',
-      ),
-    );
+    final templatesRoot = TemplatePaths().builtinTemplatesRoot;
 
     generator = FeatureGenerator(
       templateRegistry: TemplateRegistry(builtinTemplatesRoot: templatesRoot),
@@ -68,5 +62,26 @@ void main() {
       ).existsSync(),
       isTrue,
     );
+  });
+  test('refreshing exports never exports the barrel itself', () {
+    final config = ConfigLoader(projectRoot: projectRoot).load();
+    for (final name in ['login', 'register']) {
+      generator.addArtifact(
+        AddArtifactContext(
+          projectRoot: projectRoot,
+          config: config,
+          featureName: 'auth',
+          artifactName: name,
+          kind: FeatureArtifactKind.screen,
+          packageName: 'demo',
+        ),
+      );
+    }
+    final contents = File(
+      p.join(projectRoot, 'lib/features/auth/auth_feature.dart'),
+    ).readAsStringSync();
+    expect(contents, isNot(contains("export 'auth_feature.dart'")));
+    expect(contents, contains('login_screen.dart'));
+    expect(contents, contains('register_screen.dart'));
   });
 }

@@ -1,0 +1,6 @@
+import 'package:mobx/mobx.dart';
+
+// Run build_runner to generate {{feature_snake}}_store.g.dart
+class {{feature_pascal}}Store {
+  Observable<bool> isLoading = Observable(false);
+}

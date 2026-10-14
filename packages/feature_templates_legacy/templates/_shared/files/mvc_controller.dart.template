@@ -1,0 +1,3 @@
+class {{feature_pascal}}MvcController {
+  void onInit() {}
+}

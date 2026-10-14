@@ -4,9 +4,7 @@ import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
 
 class DocsCommand extends Command<int> {
-  DocsCommand({required FeatureKitServices services}) : _services = services;
-
-  final FeatureKitServices _services;
+  DocsCommand({required FeatureKitServices services});
 
   @override
   String get name => 'docs';
@@ -23,6 +21,6 @@ class DocsCommand extends Command<int> {
       '`feature docs` regenerates PROFILE.md-style docs in v0.3+. '
       'New features already include a feature README when documentation generation is enabled.',
     );
-    return 0;
+    return 69;
   }
 }

@@ -1,0 +1,9 @@
+/// Data access for {{artifact_pascal}}.
+abstract class {{artifact_pascal}}Repository {
+  Future<void> initialize();
+}
+
+class {{artifact_pascal}}RepositoryImpl implements {{artifact_pascal}}Repository {
+  @override
+  Future<void> initialize() async {}
+}

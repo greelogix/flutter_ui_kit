@@ -73,7 +73,7 @@ class ConfigLoader {
   void write(FeatureKitConfig config) {
     final buffer = StringBuffer()
       ..writeln('# Flutter Feature Kit configuration')
-      ..writeln('# https://github.com/greelogix/flutter_feature_kit')
+      ..writeln('# https://github.com/greelogix/flutter_ui_kit')
       ..writeln()
       ..writeln('project:')
       ..writeln('  architecture: ${config.architecture}')

@@ -1,5 +1,5 @@
 import 'package:args/command_runner.dart';
-import 'package:feature_core/feature_core.dart';
+import 'package:flutter_feature_kit_core/feature_core.dart';
 
 import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
@@ -52,15 +52,14 @@ class AddCommand extends Command<int> {
 
 class _AddArtifactCommand extends Command<int> {
   _AddArtifactCommand({
-    required FeatureKitServices services,
+    required this._services,
     required this.kind,
     required this.helpText,
-  }) : _services = services {
+  }) {
     argParser.addOption(
       'feature',
       abbr: 'f',
       help: 'Target feature name (snake_case folder under paths.features).',
-      mandatory: true,
     );
   }
 
@@ -87,7 +86,10 @@ class _AddArtifactCommand extends Command<int> {
       throw UsageException('Only one name is supported.', usage);
     }
 
-    final featureName = argResults!.option('feature')!;
+    final featureName = argResults!.option('feature');
+    if (featureName == null || featureName.isEmpty) {
+      throw UsageException('Missing required --feature option.', usage);
+    }
     final artifactName = args.first;
 
     Logger.title(

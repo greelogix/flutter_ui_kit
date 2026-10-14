@@ -1,0 +1,13 @@
+/// Application use case for {{artifact_pascal}}.
+abstract class {{artifact_pascal}}UseCase {
+  const {{artifact_pascal}}UseCase();
+
+  Future<void> call();
+}
+
+class {{artifact_pascal}}UseCaseImpl extends {{artifact_pascal}}UseCase {
+  const {{artifact_pascal}}UseCaseImpl();
+
+  @override
+  Future<void> call() async {}
+}

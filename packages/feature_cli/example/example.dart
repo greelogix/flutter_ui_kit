@@ -1,6 +1,6 @@
-/// Example entrypoint for the `feature` executable (see `bin/feature.dart`).
-library;
+import 'package:flutter_feature_kit_cli/flutter_feature_kit_cli.dart';
 
-void main() {
-  // Run: dart run feature_cli:feature --help
+Future<void> main() async {
+  final runner = FeatureCommandRunner();
+  await runner.run(['--help']);
 }

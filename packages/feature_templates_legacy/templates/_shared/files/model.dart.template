@@ -1,0 +1,9 @@
+class {{artifact_pascal}}Model {
+  const {{artifact_pascal}}Model({required this.id});
+
+  final String id;
+
+  {{artifact_pascal}}Model copyWith({String? id}) {
+    return {{artifact_pascal}}Model(id: id ?? this.id);
+  }
+}

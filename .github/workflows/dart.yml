@@ -1,0 +1,14 @@
+name: Dart package checks
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed packages
+      - run: dart analyze
+      - run: dart test packages/feature_core/test packages/feature_templates/test packages/feature_templates_legacy/test packages/feature_cli/test packages/feature_analyzer/test

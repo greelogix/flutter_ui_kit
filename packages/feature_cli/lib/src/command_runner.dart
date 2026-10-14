@@ -10,6 +10,7 @@ import 'commands/init_command.dart';
 import 'services/feature_kit_services.dart';
 import 'console/logger.dart';
 
+/// Runs feature scaffolding commands and returns conventional exit statuses.
 class FeatureCommandRunner extends CommandRunner<int> {
   FeatureCommandRunner({FeatureKitServices? services})
     : _services = services ?? FeatureKitServices(),
@@ -38,7 +39,9 @@ class FeatureCommandRunner extends CommandRunner<int> {
   @override
   Future<int> run(Iterable<String> args) async {
     try {
-      return await super.run(args) ?? 0;
+      final results = parse(args);
+      Logger.verbose = results.flag('verbose');
+      return await runCommand(results) ?? 0;
     } on UsageException catch (e) {
       Logger.error(e.message);
       if (e.message.isNotEmpty) {

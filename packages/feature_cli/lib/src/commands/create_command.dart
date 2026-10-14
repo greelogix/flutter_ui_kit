@@ -1,11 +1,11 @@
 import 'package:args/command_runner.dart';
-import 'package:feature_core/feature_core.dart';
+import 'package:flutter_feature_kit_core/feature_core.dart';
 
 import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
 
 class CreateCommand extends Command<int> {
-  CreateCommand({required FeatureKitServices services}) : _services = services;
+  CreateCommand({required this._services});
 
   final FeatureKitServices _services;
 

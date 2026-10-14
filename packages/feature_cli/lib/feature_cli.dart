@@ -1,4 +1,4 @@
+/// Compatibility entry point for flutter_feature_kit_cli.
 library;
 
-export 'src/command_runner.dart';
-export 'src/services/feature_kit_services.dart';
+export 'flutter_feature_kit_cli.dart';

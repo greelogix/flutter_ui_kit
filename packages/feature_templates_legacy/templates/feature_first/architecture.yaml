@@ -1,0 +1,13 @@
+name: feature_first
+display_name: Feature First
+folders:
+  - widgets
+  - repositories
+  - screens
+files:
+  - path: screens/{{feature_snake}}_screen.dart
+    template: screen.dart.template
+  - path: repositories/{{feature_snake}}_repository.dart
+    template: repository.dart.template
+  - path: widgets/{{feature_snake}}_section.dart
+    template: widget.dart.template

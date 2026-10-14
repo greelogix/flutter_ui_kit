@@ -1,22 +1,4 @@
-/// Configuration, templates, and code generation for Flutter Feature Kit.
-///
-/// Use this library to integrate feature scaffolding into tools or tests.
+/// Compatibility entry point for flutter_feature_kit_core.
 library;
 
-export 'src/architecture/architecture_registry.dart';
-export 'src/config/config_loader.dart';
-export 'src/config/feature_kit_config.dart';
-export 'src/errors/feature_kit_exception.dart';
-export 'src/generation/add_artifact_context.dart';
-export 'src/generation/dart_formatter.dart';
-export 'src/generation/feature_generator.dart';
-export 'src/generation/generation_context.dart';
-export 'src/generation/generation_result.dart';
-export 'src/naming/name_converter.dart';
-export 'src/project/project_detector.dart';
-export 'src/state/state_management_adapter.dart';
-export 'src/state/state_management_registry.dart';
-export 'src/template/architecture_template.dart';
-export 'src/template/artifact_definition.dart';
-export 'src/template/template_engine.dart';
-export 'src/template/template_registry.dart';
+export 'flutter_feature_kit_core.dart';

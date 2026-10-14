@@ -1,0 +1,6 @@
+/// Redux reducer placeholder for {{feature_pascal}}.
+class {{feature_pascal}}Reducer {
+  Map<String, Object?> call(Map<String, Object?> state, Object action) {
+    return state;
+  }
+}

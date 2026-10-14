@@ -1,0 +1,5 @@
+import 'package:get/get.dart';
+
+class {{feature_pascal}}Controller extends GetxController {
+  final isLoading = false.obs;
+}

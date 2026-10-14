@@ -8,8 +8,9 @@ environment:
 workspace:
   - packages/feature_core
   - packages/feature_templates
+  - packages/feature_templates_legacy
   - packages/feature_cli
   - packages/feature_analyzer
 
 dev_dependencies:
-  lints: ^6.0.0
+  lints: ^6.1.0

@@ -1,11 +1,11 @@
 import 'package:args/command_runner.dart';
-import 'package:feature_core/feature_core.dart';
+import 'package:flutter_feature_kit_core/feature_core.dart';
 
 import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
 
 class InitCommand extends Command<int> {
-  InitCommand({required FeatureKitServices services}) : _services = services {
+  InitCommand({required this._services}) {
     argParser.addFlag(
       'force',
       help: 'Overwrite existing featurekit.yaml',

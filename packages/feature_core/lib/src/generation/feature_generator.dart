@@ -398,6 +398,7 @@ class FeatureGenerator {
             .whereType<File>()
             .where((f) => f.path.endsWith('.dart'))
             .where((f) => !p.basename(f.path).endsWith('_test.dart'))
+            .where((f) => p.basename(f.path) != '${snake}_feature.dart')
             .toList()
           ..sort((a, b) => a.path.compareTo(b.path));
 

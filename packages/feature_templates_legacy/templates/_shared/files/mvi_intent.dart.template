@@ -1,0 +1,7 @@
+sealed class {{feature_pascal}}Intent {
+  const {{feature_pascal}}Intent();
+}
+
+class Load{{feature_pascal}}Intent extends {{feature_pascal}}Intent {
+  const Load{{feature_pascal}}Intent();
+}

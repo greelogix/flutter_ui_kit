@@ -4,12 +4,9 @@ import '../console/logger.dart';
 import '../services/feature_kit_services.dart';
 
 class GenerateCommand extends Command<int> {
-  GenerateCommand({required FeatureKitServices services})
-    : _services = services {
+  GenerateCommand({required FeatureKitServices services}) {
     addSubcommand(_GenerateExportsCommand(services: services));
   }
-
-  final FeatureKitServices _services;
 
   @override
   String get name => 'generate';
@@ -25,10 +22,7 @@ class GenerateCommand extends Command<int> {
 }
 
 class _GenerateExportsCommand extends Command<int> {
-  _GenerateExportsCommand({required FeatureKitServices services})
-    : _services = services;
-
-  final FeatureKitServices _services;
+  _GenerateExportsCommand({required FeatureKitServices services});
 
   @override
   String get name => 'exports';
@@ -42,6 +36,6 @@ class _GenerateExportsCommand extends Command<int> {
       '`feature generate exports` is planned for v0.3. '
       'Barrel files are created automatically when `generation.exports` is enabled.',
     );
-    return 0;
+    return 69;
   }
 }
