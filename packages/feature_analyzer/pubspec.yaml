@@ -1,6 +1,6 @@
 name: flutter_feature_kit_analyzer
 description: Feature structure analyzer for Flutter Feature Kit.
-version: 0.2.3
+version: 0.2.4
 homepage: https://github.com/greelogix/flutter_ui_kit
 repository: https://github.com/greelogix/flutter_ui_kit/tree/main/packages/feature_analyzer
 issue_tracker: https://github.com/greelogix/flutter_ui_kit/issues

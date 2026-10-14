@@ -13,7 +13,7 @@ Requires Dart 3.12 or later.
 
 ```yaml
 dependencies:
-  flutter_feature_kit_analyzer: ^0.2.3
+  flutter_feature_kit_analyzer: ^0.2.4
 ```
 
 ## Example
@@ -51,8 +51,7 @@ MIT. See LICENSE.
 
 **GreeLogix** — Flutter, Laravel & AI Development Agency
 
-GreeLogix builds Flutter applications, Laravel backends, and AI-powered products,
-and maintains reusable packages that help developers build better software.
+GreeLogix is a senior software agency for startups, SMEs, nonprofits, and international teams who need AI products, custom web & mobile apps, Laravel & Flutter builds, and QA — delivered in weeks, not quarters.
 
 🌐 [https://greelogix.com](https://greelogix.com)\
 📩 [hello@greelogix.com](mailto:hello@greelogix.com)
