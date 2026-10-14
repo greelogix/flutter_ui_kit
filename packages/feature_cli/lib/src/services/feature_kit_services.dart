@@ -19,14 +19,19 @@ class FeatureKitServices {
 
   /// Flutter project directory where commands read and generate files.
   final String projectRoot;
+
   /// Location of architecture manifests and shared templates.
   final TemplatePaths templatePaths;
+
   /// Registry used to resolve architecture manifests.
   late final TemplateRegistry registry;
+
   /// Generator used to create features and add artifacts.
   late final FeatureGenerator generator;
+
   /// Reads and writes the project configuration.
   late final ConfigLoader configLoader;
+
   /// Detects project metadata and configuration defaults.
   late final ProjectDetector detector;
 }
